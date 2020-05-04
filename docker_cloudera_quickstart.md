@@ -43,8 +43,19 @@ Optional: map any other ports (e.g. 7180 for Cloudera Manager, 80 for a guided t
 Optional: runs the container in the background
 ```
 
-## Run 2
+## Run 2 ([source](https://medium.com/@dataakkadian/how-to-install-and-running-cloudera-docker-container-on-ubuntu-b7c77f147e03))
 ```bash
 docker run -m 4G --memory-reservation 2G --memory-swap 8G --hostname=quickstart.cloudera --privileged=true -t -i -v $(pwd):/zaid --publish-all=true -p8888 -p8088 cloudera/quickstart /usr/bin/docker-quickstart
+```
+— publish-all=true opens up all the host ports to the docker ports, so you can access programs like the Hue in the port 8888 and YARN in the port 8088, and others programs. <br>
+
+With these running, you can go to ```http://localhost:32769/``` for ```YARN``` and ```localhost:32768``` for ```HUE```
+### useful commands
+#### Collection system information
+```bash
+sudo cat /proc/meminfo
+```
+```bash
+docker stats [CONTAINER ID]
 ```
 
