@@ -26,14 +26,31 @@ object NoSQLExamples {
         val sqlCtx = new SQLContext(sc)
         import sqlCtx._
 
-        println("Reading a Titanic train into a dataframe RDD")
-        val csvFilePath = "/home/notha99y/Downloads/train.csv"
+        // println("Reading a sTitanic train into a dataframe RDD")
+        
+        // val csvFilePath = "/home/notha99y/Downloads/train.csv"
+        // val df = spark.read.format("csv").option("header", true).option("inferSchema", true).csv(csvFilePath)
 
-        val df = spark.read.format("csv").option("header", true).option("inferSchema", true).csv(csvFilePath)
+        // df.show()
+        // df.count()
+        // df.printSchema()
 
-        df.show()
-        df.count()
-        df.printSchema()
+        val userCSVFilePath = "user.csv"
+        val transCSVFilePath = "transactions.csv"
+        
+        val userDF = spark.read.format("csv").option("header", true).option("inferSchema", true).csv(userCSVFilePath)
+
+        val transDF = spark.read.format("csv").option("header", true).option("inferSchema", true).csv(transCSVFilePath)
+        
+        userDF.show()
+        transDF.show()
+
+        val innerJoin = transDF.join(userDF, transDF("user-id") === userDF("id"), "inner")
+
+        // Change your product id here
+        val interestedProductID = 1
+        innerJoin.filter($"product-id" === interestedProductID).groupBy("location").count().show()
+
 
     }
 }

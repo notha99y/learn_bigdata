@@ -1,0 +1,6 @@
+transaction-id,product-id,user-id,purchase-amount,item-description
+1,1,1,300,time,deposit
+2,1,2,300,time,deposit
+3,1,2,300,time,deposit
+4,2,3,100,swift,transfer
+5,1,3,300,time,deposit
